@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: '蚂蚁集团体验技术部出品',
+    defaultMessage: 'Cat-Family',
   });
 
   const currentYear = new Date().getFullYear();
@@ -20,21 +20,21 @@ const Footer: React.FC = () => {
       copyright={`${currentYear} ${defaultMessage}`}
       links={[
         {
-          key: 'Ant Design Pro',
-          title: 'Ant Design Pro',
-          href: 'https://pro.ant.design',
+          key: '千渝掌柜',
+          title: '千渝掌柜 - Admin',
+          href: 'https://github.com/Cat-Family/epos-admin/',
           blankTarget: true,
         },
         {
           key: 'github',
           title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
+          href: 'https://github.com/Cat-Family',
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
-          href: 'https://ant.design',
+          key: 'Cat-Family',
+          title: 'Cat-Family',
+          href: 'https://github.com/Cat-Family',
           blankTarget: true,
         },
       ]}

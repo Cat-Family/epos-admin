@@ -53,4 +53,5 @@ export default {
   'menu.log': '日志',
   'menu.log.request': '接口',
   'menu.log.websocket': 'WebSocket',
+  'menu.users': '用户',
 };

@@ -22,6 +22,7 @@ import type { CSSProperties } from 'react';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
+import './style.less';
 
 const iconStyles: CSSProperties = {
   color: 'rgba(0, 0, 0, 0.2)',
@@ -37,6 +38,7 @@ const Lang = () => {
       height: 42,
       lineHeight: '42px',
       position: 'fixed',
+      top: 16,
       right: 16,
       borderRadius: token.borderRadius,
       ':hover': {
@@ -71,16 +73,6 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
-
-  const containerClassName = useEmotionCss(() => {
-    return {
-      display: 'flex',
-      flexDirection: 'column',
-      overflow: 'auto',
-      backgroundColor: 'white',
-    };
-  });
-
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
@@ -125,7 +117,13 @@ const Login: React.FC = () => {
   const { status, type: loginType } = userLoginState;
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundColor: 'white',
+        height: '100vh',
+        width: '100vw',
+      }}
+    >
       <Helmet>
         <title>
           {intl.formatMessage({
@@ -140,6 +138,11 @@ const Login: React.FC = () => {
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
         logo="/logo.png"
         title="千渝掌柜"
+        activityConfig={{
+          style: {
+            display: 'none',
+          },
+        }}
         subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
         initialValues={{
           autoLogin: true,

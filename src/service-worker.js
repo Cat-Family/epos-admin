@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 /* globals workbox */
 workbox.core.setCacheNameDetails({
-  prefix: 'antd-pro',
+  prefix: 'epos-admin',
   suffix: 'v5',
 });
 // Control all opened tabs ASAP

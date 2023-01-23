@@ -1,7 +1,7 @@
 {
-  "name": "ant-design-pro",
-  "version": "6.0.0",
-  "private": true,
+  "name": "epos-admin",
+  "version": "0.0.1",
+  "private": false,
   "description": "An out-of-box UI solution for enterprise applications",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 max build",

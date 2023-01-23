@@ -47,8 +47,14 @@ export default [
   },
   {
     name: 'store',
-    icon: 'table',
-    path: '/list',
+    icon: 'ShopOutlined',
+    path: '/store',
+    component: './Store',
+  },
+  {
+    name: 'users',
+    icon: 'UserOutlined',
+    path: '/users',
     component: './TableList',
   },
   {
