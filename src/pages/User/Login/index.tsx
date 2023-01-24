@@ -5,6 +5,7 @@ import {
   AlipayOutlined,
   LockOutlined,
   MobileOutlined,
+  QrcodeOutlined,
   TaobaoOutlined,
   UserOutlined,
   WeiboOutlined,
@@ -17,9 +18,8 @@ import {
 } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { FormattedMessage, Helmet, history, SelectLang, useIntl, useModel } from '@umijs/max';
-import { Alert, Divider, message, Space, Tabs } from 'antd';
-import type { CSSProperties } from 'react';
-import React, { useState } from 'react';
+import { Alert, Button, Divider, message, Modal, QRCode, Space, Tabs } from 'antd';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
 import './style.less';
@@ -74,6 +74,16 @@ const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
   const intl = useIntl();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [qrStatus, setQrStatus] = useState<'loading' | 'active' | 'expired' | undefined>('loading');
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
@@ -115,6 +125,26 @@ const Login: React.FC = () => {
     }
   };
   const { status, type: loginType } = userLoginState;
+
+  useEffect(() => {
+    let sign = true;
+    if (!qrStatus || qrStatus === 'loading') {
+      setTimeout(() => {
+        if (sign) setQrStatus('active');
+      }, 3000);
+    }
+    if (qrStatus === 'active') {
+      setTimeout(() => {
+        if (sign) setQrStatus('expired');
+      }, 10000);
+    }
+    if (!isModalOpen) {
+      setQrStatus('loading');
+    }
+    return () => {
+      sign = false;
+    };
+  }, [qrStatus, isModalOpen]);
 
   return (
     <div
@@ -203,6 +233,21 @@ const Login: React.FC = () => {
                 }}
               >
                 <WeiboOutlined style={{ ...iconStyles, color: '#333333' }} />
+              </div>
+              <div
+                onClick={showModal}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                  height: 40,
+                  width: 40,
+                  border: '1px solid #D4D8DD',
+                  borderRadius: '50%',
+                }}
+              >
+                <QrcodeOutlined style={{ ...iconStyles, color: '#333333' }} />
               </div>
             </Space>
 
@@ -391,6 +436,25 @@ const Login: React.FC = () => {
           </a>
         </div>
       </LoginFormPage>
+      <Modal
+        title="扫码登录"
+        open={isModalOpen}
+        footer={[
+          <Button key="submit" type="ghost" onClick={handleCancel}>
+            关闭
+          </Button>,
+        ]}
+        onCancel={handleCancel}
+        width={'fit-content'}
+      >
+        <QRCode
+          style={{ justifyContent: 'center', alignItems: 'center' }}
+          value="https://ant.design/"
+          status={qrStatus}
+          errorLevel="H"
+          onRefresh={() => setQrStatus('loading')}
+        />
+      </Modal>
     </div>
   );
 };

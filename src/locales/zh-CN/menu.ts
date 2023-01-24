@@ -54,4 +54,6 @@ export default {
   'menu.log.request': '接口',
   'menu.log.websocket': 'WebSocket',
   'menu.users': '用户',
+  'menu.dishes': '菜单',
+  'menu.store.detail': '店铺详情',
 };

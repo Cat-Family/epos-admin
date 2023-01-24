@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
       links={[
         {
           key: '千渝掌柜',
-          title: '千渝掌柜 - Admin',
+          title: '千渝掌柜 - 开放平台',
           href: 'https://github.com/Cat-Family/epos-admin/',
           blankTarget: true,
         },

@@ -50,12 +50,33 @@ export default [
     icon: 'ShopOutlined',
     path: '/store',
     component: './Store',
+    routes: [
+      {
+        path: '/store/:id',
+        name: 'detail',
+        hideInMenu: true,
+      },
+    ],
+  },
+  {
+    path: '/store/:id/dishes',
+    name: 'dishes',
+    hideInMenu: true,
+    component: './TableList',
   },
   {
     name: 'users',
     icon: 'UserOutlined',
     path: '/users',
-    component: './TableList',
+    routes: [
+      { path: '/users', component: './Users' },
+      {
+        hideInMenu: true,
+        path: '/users/:id/messages',
+        name: 'messages',
+        component: './TableList',
+      },
+    ],
   },
   {
     name: 'log',
@@ -69,12 +90,12 @@ export default [
       {
         path: '/log/request',
         name: 'request',
-        component: './TableList',
+        component: './Log/Websocket',
       },
       {
         path: '/log/websocket',
         name: 'websocket',
-        component: './TableList',
+        component: './Log/Websocket',
       },
     ],
   },
