@@ -38,7 +38,6 @@ export default () => {
       }}
     >
       <PageContainer
-        fixedHeader
         loading={false}
         tabActiveKey={id || 'base'}
         header={{

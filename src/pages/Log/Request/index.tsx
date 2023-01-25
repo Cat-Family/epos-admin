@@ -4,30 +4,66 @@ import { useRef } from 'react';
 import request from 'umi-request';
 
 type InterfaceLogItem = {
-  id: number,
+  uuid: string,
+  reqName: string,
+  reqUrl: string,
   tenantId: string,
-  userId: string,
-  content: string,
+  reqUser: string,
+  clientVersion: string,
+  reqParameters: string,
+  respResult: string,
+  respCode: string,
+  time: string,
   creatTime: string
 };
 
 const columns: ProColumns<InterfaceLogItem>[] = [
   {
-    title: '租户id',
-    dataIndex: 'tenantId',
-    ellipsis: true,
-    width: 280
-  },
-  {
-    title: '用户id',
-    dataIndex: 'userId',
-    width: 80
-  },
-  {
-    title: '发送内容',
-    dataIndex: 'content',
-    copyable: true,
+    title: '接口名称',
+    dataIndex: 'reqName',
     ellipsis: true
+  },
+  {
+    title: '接口路径',
+    dataIndex: 'reqUrl',
+    ellipsis: true
+  },
+  {
+    title: '店铺id',
+    dataIndex: 'tenantId',
+    ellipsis: true
+  },
+  {
+    title: '用户',
+    dataIndex: 'reqUser',
+    ellipsis: true,
+  },
+  {
+    title: '接口版本',
+    dataIndex: 'clientVersion',
+    ellipsis: true,
+  },
+  {
+    title: '请求参数',
+    dataIndex: 'reqParameters',
+    copyable: true,
+    ellipsis: true,
+  },
+  {
+    title: '返回参数',
+    dataIndex: 'respResult',
+    copyable: true,
+    ellipsis: true,
+  },
+  {
+    title: '返回状态码',
+    dataIndex: 'respCode',
+    // ellipsis: true,
+  },
+  {
+    title: '耗时',
+    dataIndex: 'time',
+    ellipsis: true,
   },
   {
     title: '请求时间',
@@ -46,7 +82,7 @@ export default () => {
       request={async (params = {}) => {
         return request<{
           data: InterfaceLogItem[];
-        }>('https://qianyushop.shop/api/openStage/queryWebsocketLog', {
+        }>('https://qianyushop.shop/api/openStage/queryInterfaceLog', {
           params,
         });
       }}

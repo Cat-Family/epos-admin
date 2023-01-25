@@ -29,6 +29,12 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/service',
+    name: 'service',
+    icon: 'CloudOutlined',
+    component: './Service',
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',
@@ -41,7 +47,12 @@ export default [
       {
         path: '/admin/users',
         name: 'user',
-        component: './Admin',
+        component: './TableList',
+      },
+      {
+        path: '/admin/messages',
+        name: 'messages',
+        component: './TableList',
       },
     ],
   },
@@ -90,7 +101,7 @@ export default [
       {
         path: '/log/request',
         name: 'request',
-        component: './Log/Websocket',
+        component: './Log/Request',
       },
       {
         path: '/log/websocket',

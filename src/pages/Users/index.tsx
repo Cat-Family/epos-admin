@@ -121,17 +121,12 @@ const columns: ProColumns<GithubIssueItem>[] = [
       >
         编辑
       </a>,
-      <a onClick={() => history.push(`/users/${record.id}/messages`)} key="view">
+      <a onClick={() => history.push(`/users/${record.id}/messages`)} key="messages">
         消息
       </a>,
-      <TableDropdown
-        key="actionGroup"
-        onSelect={() => action?.reload()}
-        menus={[
-          { key: 'copy', name: '复制' },
-          { key: 'delete', name: '删除' },
-        ]}
-      />,
+      <a key="delete">
+        删除
+      </a>
     ],
   },
 ];
@@ -144,7 +139,6 @@ export default () => {
       actionRef={actionRef}
       cardBordered
       request={async (params = {}, sort, filter) => {
-        console.log(sort, filter);
         return request<{
           data: GithubIssueItem[];
         }>('https://proapi.azurewebsites.net/github/issues', {
@@ -183,7 +177,7 @@ export default () => {
         },
       }}
       pagination={{
-        pageSize: 5,
+        pageSize: 15,
         onChange: (page) => console.log(page),
       }}
       dateFormatter="string"
@@ -192,29 +186,6 @@ export default () => {
         <Button key="button" icon={<PlusOutlined />} type="primary">
           新建
         </Button>,
-        <Dropdown
-          key="menu"
-          menu={{
-            items: [
-              {
-                label: '1st item',
-                key: '1',
-              },
-              {
-                label: '2nd item',
-                key: '1',
-              },
-              {
-                label: '3rd item',
-                key: '1',
-              },
-            ],
-          }}
-        >
-          <Button>
-            <EllipsisOutlined />
-          </Button>
-        </Dropdown>,
       ]}
     />
   );

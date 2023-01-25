@@ -18,7 +18,7 @@ const Settings: ProLayoutProps & {
   splitMenus: true,
   siderMenuType: 'group',
   colorWeak: false,
-  title: '千渝掌柜后台',
+  title: '千渝掌柜 - 开放平台',
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式
