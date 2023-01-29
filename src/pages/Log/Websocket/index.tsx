@@ -13,6 +13,11 @@ type InterfaceLogItem = {
 
 const columns: ProColumns<InterfaceLogItem>[] = [
   {
+    dataIndex: 'index',
+    valueType: 'indexBorder',
+    width: 48,
+  },
+  {
     title: '租户id',
     dataIndex: 'tenantId',
     ellipsis: true,
@@ -27,12 +32,14 @@ const columns: ProColumns<InterfaceLogItem>[] = [
     title: '发送内容',
     dataIndex: 'content',
     copyable: true,
-    ellipsis: true
+    ellipsis: true,
+    search: false
   },
   {
     title: '请求时间',
     dataIndex: 'creatTime',
-    width: 150
+    search: false,
+    width: 150,
   },
 ];
 

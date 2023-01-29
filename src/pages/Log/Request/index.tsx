@@ -19,6 +19,11 @@ type InterfaceLogItem = {
 
 const columns: ProColumns<InterfaceLogItem>[] = [
   {
+    dataIndex: 'index',
+    valueType: 'indexBorder',
+    width: 48,
+  },
+  {
     title: '接口名称',
     dataIndex: 'reqName',
     ellipsis: true
@@ -48,12 +53,14 @@ const columns: ProColumns<InterfaceLogItem>[] = [
     dataIndex: 'reqParameters',
     copyable: true,
     ellipsis: true,
+    search: false
   },
   {
     title: '返回参数',
     dataIndex: 'respResult',
     copyable: true,
     ellipsis: true,
+    search: false
   },
   {
     title: '返回状态码',
@@ -64,11 +71,13 @@ const columns: ProColumns<InterfaceLogItem>[] = [
     title: '耗时',
     dataIndex: 'time',
     ellipsis: true,
+    search: false
   },
   {
     title: '请求时间',
     dataIndex: 'creatTime',
-    width: 150
+    width: 150,
+    search: false
   },
 ];
 

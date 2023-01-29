@@ -54,6 +54,11 @@ export default [
         name: 'messages',
         component: './TableList',
       },
+      {
+        path: '/admin/store',
+        name: 'store',
+        component: './Store',
+      },
     ],
   },
   {
