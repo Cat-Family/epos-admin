@@ -1,60 +1,130 @@
-import {
-    CheckCircleFilled,
-    DeleteOutlined,
-    EditOutlined,
-    SettingOutlined,
-} from '@ant-design/icons';
-import { PageContainer, ProCard } from '@ant-design/pro-components';
-import {Col, Row, Tag } from 'antd';
-import { history } from 'umi';
+import { ProCard, StatisticCard } from '@ant-design/pro-components';
+import RcResizeObserver from 'rc-resize-observer';
+import { useState } from 'react';
+import { RingProgress } from '@ant-design/charts';
+import { Tag, Button } from 'antd';
+import { request } from 'umi';
+import { SyncOutlined, PoweroffOutlined,ReloadOutlined } from '@ant-design/icons';
 
+const { Statistic } = StatisticCard;
+
+
+    
+// 系统服务概览
+const SystemCatPie = () => {
+    const config = {
+        height: 150,
+        width: 150,
+        autoFit: true,
+        percent: 0.4,
+        color: ['#F4664A', '#E8EDF3'],
+        innerRadius: 0.85,
+        radius: 0.98,
+        statistic: {
+            title: {
+                style: {
+                    color: '#363636',
+                    fontSize: '12px',
+                    lineHeight: '14px',
+                },
+                formatter: () => '内存使用率',
+            },
+        },
+    };
+    return <RingProgress {...config} />;
+};
+
+const a = () => {
+    console.log("sss")
+}
 export default () => {
 
+    const [responsive, setResponsive] = useState(false);
+    const [loadings, setLoadings] = useState<boolean[]>([]);
+    const enterLoading = (index: number) => {
+        setLoadings((prevLoadings) => {
+            const newLoadings = [...prevLoadings];
+            newLoadings[index] = true;
+            return newLoadings;
+        });
 
+        setTimeout(() => {
+            setLoadings((prevLoadings) => {
+                const newLoadings = [...prevLoadings];
+                newLoadings[index] = false;
+                return newLoadings;
+            });
+        }, 6000);
+    };
 
+    const req = () => {request('https://qianyushop.shop/api/openStage/queryInterfaceLog', {
+        params: {
+            current: 1,
+            pageSize: 10
+        },
+        method: "GET",
+        skipErrorHandler: true,
+      }).then((resp => {
+        console.log(resp.code)
+      }))} ;
 
     return (
-        <div
-            style={{
-                background: '#F5F7FA',
+        <RcResizeObserver
+            key="resize-observer"
+            onResize={(offset) => {
+                setResponsive(offset.width < 596);
             }}
         >
-            <PageContainer
-                loading={false}
-                header={{
-                    title: '服务',
-                    ghost: true,
-                }}
-                footerToolBarProps={{
-                    style: {},
-                }}
-            >
-                <Row gutter={[8, 16]}>
-                    {Array(4)
-                        .fill('tset')
-                        .map((item, index) => (
-                            <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
-                                <ProCard
-                                    hoverable
-                                    title={`服务${index + 1}`}
-                                    bordered
-                                    // extra={<Tag icon={<CheckCircleFilled />} color="success" />}
-                                    
-                                    actions={[
-                                        <SettingOutlined key="setting" />,
-                                        <EditOutlined key="edit" />,
-                                    ]}
-                                    onClick={() => {
-                                        history.push(`/store/${index}`);
-                                    }}
-                                >
-                                    <div>开铺时间-{new Date().getFullYear()}</div>
-                                    <div>店员4人</div>
-                                </ProCard>
-                            </Col>
-                        ))}
-                </Row>
-            </PageContainer>
-        </div>
+            {Array(2)
+                .fill('tset')
+                // eslint-disable-next-line react/jsx-key
+                .map((item, index) => (
+                    // eslint-disable-next-line react/jsx-key
+                    <ProCard split={responsive ? 'horizontal' : 'vertical'} style={{ marginTop: 10 }}>
+                        <StatisticCard
+                            onClick={a}
+                            hoverable
+                            colSpan={responsive ? 24 : 24}
+                            title="千渝掌柜"
+                            statistic={{
+                                title: '服务器IP',
+                                value: "82.157.67.150"
+                            }}
+                            chart={
+                                SystemCatPie()
+                            }
+                            footer={
+                                <>
+                                    <Statistic value="70.98%" title="CPU使用率" layout="horizontal" />
+                                    <Tag icon={<SyncOutlined spin />} color="#87d068">
+                                        运行中
+                                    </Tag>
+                                    <Button
+                                        style={{ float: "right" }}
+                                        size="small"
+                                        type="primary"
+                                        icon={<ReloadOutlined />}
+                                        loading={loadings[2]}
+                                        onClick={() => req()}
+                                    >
+                                        重启
+                                    </Button>
+                                    <Button
+                                        style={{ float: "right",marginRight: 8 }}
+                                        size="small"
+                                        type="primary"
+                                        danger
+                                        icon={<PoweroffOutlined />}
+                                        loading={loadings[2]}
+                                        onClick={() => enterLoading(2)}
+                                    >
+                                        停止
+                                    </Button>
+                                </>
+                            }
+                        />
+                    </ProCard>
+                ))}
+        </RcResizeObserver>
     );
 };

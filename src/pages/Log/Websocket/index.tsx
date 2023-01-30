@@ -1,5 +1,5 @@
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
+import { ProTable,WaterMark } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import request from 'umi-request';
 
@@ -46,6 +46,7 @@ const columns: ProColumns<InterfaceLogItem>[] = [
 export default () => {
   const actionRef = useRef<ActionType>();
   return (
+    <WaterMark content="dog">
     <ProTable<InterfaceLogItem>
       columns={columns}
       actionRef={actionRef}
@@ -94,5 +95,6 @@ export default () => {
       }}
       dateFormatter="string"
     />
+    </WaterMark>
   );
 };
