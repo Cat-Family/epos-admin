@@ -1,5 +1,5 @@
 import {
-  CheckCircleFilled,
+  SyncOutlined,
   DeleteOutlined,
   DownloadOutlined,
   EditOutlined,
@@ -92,15 +92,17 @@ export default () => {
       >
         {location.pathname === '/store' && (
           <Row gutter={[8, 16]}>
-            {Array(20)
+            {Array(2)
               .fill('tset')
               .map((item, index) => (
                 <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
                   <ProCard
                     hoverable
-                    title={`店铺${index + 1}`}
+                    title="千渝味黔江鸡杂·干锅·汤锅"
                     bordered
-                    extra={<Tag icon={<CheckCircleFilled />} color="success" />}
+                    extra={<Tag icon={<SyncOutlined spin />} color="#87d068">
+                      营业中
+                    </Tag>}
                     actions={[
                       <SettingOutlined key="setting" />,
                       <EditOutlined key="edit" />,
@@ -110,8 +112,7 @@ export default () => {
                       history.push(`/store/${index}`);
                     }}
                   >
-                    <div>开铺时间-{new Date().getFullYear()}</div>
-                    <div>店员4人</div>
+                    <div>到期剩余 10天</div>
                   </ProCard>
                 </Col>
               ))}

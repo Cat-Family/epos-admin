@@ -13,7 +13,7 @@ type InterfaceLogItem = {
 
 const columns: ProColumns<InterfaceLogItem>[] = [
   {
-    dataIndex: 'index',
+    dataIndex: 'id',
     valueType: 'indexBorder',
     width: 48,
   },
@@ -64,11 +64,8 @@ export default () => {
       columnsState={{
         persistenceKey: 'pro-table-singe-demos',
         persistenceType: 'localStorage',
-        onChange(value) {
-          console.log('value: ', value);
-        },
       }}
-      rowKey="uuid"
+      rowKey="id"
       search={{
         labelWidth: 'auto',
       }}
@@ -90,8 +87,7 @@ export default () => {
         },
       }}
       pagination={{
-        pageSize: 10,
-        onChange: (page) => console.log(page),
+        pageSize: 10
       }}
       dateFormatter="string"
     />

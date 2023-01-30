@@ -102,10 +102,7 @@ export default () => {
       }}
       columnsState={{
         persistenceKey: 'pro-table-singe-demos',
-        persistenceType: 'localStorage',
-        onChange(value) {
-          console.log('value: ', value);
-        },
+        persistenceType: 'localStorage'
       }}
       rowKey="uuid"
       search={{
@@ -129,8 +126,7 @@ export default () => {
         },
       }}
       pagination={{
-        pageSize: 10,
-        onChange: (page) => console.log(page),
+        pageSize: 10
       }}
       dateFormatter="string"
     />
